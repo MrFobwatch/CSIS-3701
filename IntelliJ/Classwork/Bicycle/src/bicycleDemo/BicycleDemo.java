@@ -13,7 +13,7 @@ public class BicycleDemo {
 		bike1.speedUp(10);
 		bike1.setGear(2);
 		bike1.printStates();
-		bike1.displayStatus(0);
+		bike1.displayStatus("Hello");
 
 		bike2.setCadence(50);
 		bike2.speedUp(10);
