@@ -5,6 +5,13 @@ public class Bicycle {
 	int gear = 1;
 	int speed = 0;
 
+	public Bicycle(int cadence, int speed, int gear) {
+		this.cadence = cadence;
+		this.gear = gear;
+		this.speed = speed;
+
+	}
+
 	void setCadence(int newCadence) {
 		displayStatus("Changing Cadence from "+ cadence + " to " + newCadence);
 		this.cadence = newCadence;
