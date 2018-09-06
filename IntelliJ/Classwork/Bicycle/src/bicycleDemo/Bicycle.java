@@ -1,9 +1,9 @@
 package bicycleDemo;
 
 public class Bicycle {
-	int cadence = 0;
-	int gear = 1;
-	int speed = 0;
+	private int cadence;
+	private int gear;
+	private int speed;
 
 	public Bicycle(int cadence, int speed, int gear) {
 		this.cadence = cadence;
