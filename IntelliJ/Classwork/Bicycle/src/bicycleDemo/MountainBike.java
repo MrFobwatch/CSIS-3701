@@ -1,9 +1,9 @@
 package bicycleDemo;
 
-public class MountainBike extends Bicycle {
+class MountainBike extends Bicycle {
 
 	//the MountainBike subclass adds one field
-	public int seatHeight;
+	private int seatHeight;
 
 	//the MountainBike subclass has one constructor
 	public MountainBike(int startHeight,

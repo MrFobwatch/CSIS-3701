@@ -1,6 +1,6 @@
 package bicycleDemo;
 
-public class Bicycle {
+class Bicycle {
 	private int cadence;
 	private int gear;
 	private int speed;

@@ -1,5 +1,6 @@
 package bicycleDemo;
-public class BicycleDemo {
+
+class BicycleDemo {
 	public static void main(String[] args) {
 		//Create two bike object
 		Bicycle bike1 = new Bicycle(0, 0, 5);
