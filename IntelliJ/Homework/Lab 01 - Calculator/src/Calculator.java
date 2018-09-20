@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
@@ -8,6 +10,7 @@ public class Calculator {
 
 	private double total;
 	private double totalMem;
+	Scanner scan = new Scanner(System.in);
 
 	public double getTotal() {
 		return total;
@@ -70,6 +73,33 @@ public class Calculator {
 		return calcSuccess;
 
 	}
+
+	public void performCalculation() {
+		char inputOperator;
+		double inputNumber;
+		//Get input Methods
+//		getInputs();
+		Boolean calcSucess = doOperation(inputOperator, inputNumber);
+		while (calcSucess == FALSE) {
+			//get new operator
+			char newOperator = getInputOperator();
+			inputOperator = newOperator;
+			doOperation(newOperator, inputNumber);
+		}
+
+
+	}
+
+	private char getInputOperator() {
+		return String.valueOf(scan.nextLine());
+
+	}
+
+	private double getInputNumber() {
+		return Double.parseDouble(scan.nextLine());
+	}
+
+
 	//Input Function with data validation
 	//Printed Interface
 
