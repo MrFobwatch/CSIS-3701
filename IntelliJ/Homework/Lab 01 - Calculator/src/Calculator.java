@@ -8,9 +8,12 @@ import static java.lang.Boolean.TRUE;
  */
 public class Calculator {
 
+	private Scanner scan = new Scanner(System.in);
 	private double total;
 	private double totalMem;
-	Scanner scan = new Scanner(System.in);
+	private double first;
+	private double second;
+	private String operator;
 
 	public double getTotal() {
 		return total;
@@ -54,54 +57,74 @@ public class Calculator {
 		total = 0;
 	}
 
-	public boolean doOperation(char operator, double number) {
+	private boolean doOperation(String operator, double number) {
 		boolean calcSuccess = FALSE;
-		if (operator == '+') {
-			add(number);
-			calcSuccess = TRUE;
-		} else if (operator == '-') {
-			subtract(number);
-			calcSuccess = TRUE;
-		} else if (operator == '*') {
-			multiply(number);
-			calcSuccess = TRUE;
-		} else if (operator == '/') {
-			divide(number);
-			calcSuccess = TRUE;
-		} else
-			System.out.println("Please use a simple mathematical symbol and try again");
+		switch (operator) {
+			case "+":
+				add(number);
+				calcSuccess = TRUE;
+				break;
+			case "-":
+				subtract(number);
+				calcSuccess = TRUE;
+				break;
+			case "*":
+				multiply(number);
+				calcSuccess = TRUE;
+				break;
+			case "/":
+				divide(number);
+				calcSuccess = TRUE;
+				break;
+			default:
+				System.out.println("Please use a simple mathematical symbol and try again");
+				break;
+		}
 		return calcSuccess;
 
 	}
 
-	public void performCalculation() {
-		char inputOperator;
-		double inputNumber;
-		//Get input Methods
-//		getInputs();
-		Boolean calcSucess = doOperation(inputOperator, inputNumber);
-		while (calcSucess == FALSE) {
-			//get new operator
-			char newOperator = getInputOperator();
-			inputOperator = newOperator;
-			doOperation(newOperator, inputNumber);
+	private void performCalculation() {
+		//Get input
+		getInputs();
+		total = first;
+		Boolean calcSuccess = doOperation(operator, second);
+	}
+
+	private void getInputs() {
+		Boolean firstValue = FALSE;
+		Boolean secondValue = FALSE; //Do we have a first and second number
+		System.out.println("Enter a single operation Expression ");
+		while (!scan.hasNext("[-+*/]")) {
+			if (!firstValue && scan.hasNextDouble()) {
+				first = scan.nextDouble();
+				firstValue = TRUE;
+				if (scan.hasNext("[-+*/]")) {
+					operator = scan.next();
+				}
+			} else if (!secondValue && scan.hasNextDouble()) {
+				second = scan.nextDouble();
+				secondValue = TRUE;
+			}
+
+			if ((!firstValue && !secondValue) || operator == null) {
+				System.out.println("Please Check your Input for numbers and correct symbols and try again");
+				firstValue = FALSE;
+				secondValue = FALSE;
+
+				scan.nextLine();
+			}
+			if (firstValue && secondValue) break;
 		}
 
 
 	}
 
-	private char getInputOperator() {
-		return String.valueOf(scan.nextLine());
-
+	public void run() {
+		performCalculation();
+		System.out.println("You entered " + first + " " + operator + " " + second);
+		System.out.println("That equals " + getTotal());
 	}
-
-	private double getInputNumber() {
-		return Double.parseDouble(scan.nextLine());
-	}
-
-
-	//Input Function with data validation
-	//Printed Interface
 
 }
 
