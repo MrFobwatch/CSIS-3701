@@ -15,7 +15,7 @@ public class Card {
 	}
 
 
-	private char setName() {
+	public char setName() {
 		int Number = cardNumber;
 		if (Number >= 10) {
 			if (Number == 10) {
