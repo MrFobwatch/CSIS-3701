@@ -103,3 +103,5 @@ nbdist/
 
 
 # End of https://www.gitignore.io/api/netbeans
+/Netbeans/Homework/nbproject/private/
+/Netbeans/LAB_01-Calc/target/
