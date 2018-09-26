@@ -31,7 +31,7 @@ public class Card {
 			}
 			return name;
 		} else {
-			return (char) Number;
+			return (char)(Number + '0');
 		}
 
 	}
@@ -43,5 +43,14 @@ public class Card {
 
 	public void setNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
+	}
+
+	public void printName(){
+		System.out.println(this.name + " of " + this.suit);
+
+	}
+
+	public String getName(){
+		return this.name + " of " + this.suit;
 	}
 }
