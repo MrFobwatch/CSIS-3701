@@ -9,7 +9,7 @@ import java.util.Stack;
  * and other important values for the game
  */
 public class GuessLogic {
-    private Stack<Integer> guessesMade;
+    private Stack<Integer> guessesMade = new Stack<>();
     private int upperBound;
     private int lowerBound;
     private int correctNumber;
@@ -21,10 +21,11 @@ public class GuessLogic {
     */
 
     public GuessLogic(int lowerBound, int upperBound) {
+
         this.upperBound = upperBound;
         this.lowerBound = lowerBound;
         decideCorrectNumber();
-        guessesMade.setSize(upperBound);
+//        guessesMade.setSize(upperBound);
         //		guessesMade = new int[upperBound];
     }
 
@@ -49,14 +50,31 @@ public class GuessLogic {
     }
 
     public int guessNumberCount() {
-        int guessesMadeCount = (int) Arrays.stream(guessesMade.toArray()).count();
-        //		Object[] array = guessesMade.toArray();
-        return guessesMadeCount;
+        return (int) Arrays.stream(guessesMade.toArray()).count();
     }
 
     public void guessNumber(int guess) {
-        if (guess > lowerBound) {
-            guessesMade.push(guess);
-        }
+        guessesMade.push(guess);
+        guessesMade.trimToSize();
+    }
+
+    public boolean isGuessValid(int guess) {
+        // data validation performed here
+        return guess >= lowerBound && guess <= upperBound;
+    }
+
+    public String toString() {
+        return "GuessLogic{"
+                       + "guessesMade="
+                       + guessesMade
+                       + ", upperBound="
+                       + upperBound
+                       + ", lowerBound="
+                       + lowerBound
+                       + ", correctNumber="
+                       + correctNumber
+                       + ", random="
+                       + random
+                       + '}';
     }
 }
