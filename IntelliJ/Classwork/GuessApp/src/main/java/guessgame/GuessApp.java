@@ -23,16 +23,20 @@ public class GuessApp {
 	}
 
 	public void gamePlay() {
+		turn();
+		while (!checkCorrect())
+		{
+			turn();
+		}
 	}
 
 	private void turn() {
+		printPrompt();
+		game.guessNumber(getUserGuess());
 	}
 
 	private void printPrompt() {
-		System.out.print("Enter a guess between ");
-		System.out.print(lowerBound);
-		System.out.print(" and ");
-		System.out.print(upperBound + ": " )
+		System.out.print("Enter a guess between " + lowerBound + " and " + upperBound + ": " );
 	}
 
 	private int getUserGuess() {
