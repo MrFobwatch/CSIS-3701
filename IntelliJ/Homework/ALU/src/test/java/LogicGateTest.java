@@ -26,6 +26,12 @@ public class LogicGateTest {
         ListIterator<Signal> result = logicGate.getOutputs();
         Assert.assertEquals(null, result);
     }
+
+    @Test
+    public void testGetOutputAtPort() throws Exception {
+        Signal result = logicGate.getOutputAtPort(0);
+        Assert.assertEquals(new Signal(true), result);
+    }
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
