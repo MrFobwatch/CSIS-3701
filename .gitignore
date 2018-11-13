@@ -143,3 +143,5 @@ hs_err_pid*
 /.nb-gradle/
 
 \.directory
+
+IntelliJ/Homework/ALU/target/
