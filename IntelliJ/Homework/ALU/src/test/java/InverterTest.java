@@ -3,8 +3,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.util.LinkedList;
 
@@ -13,9 +13,9 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class InverterTest {
-	@Mock
+	@Spy
 	LinkedList<Signal> testInput;
-	@Mock
+	@Spy
 	LinkedList<Signal> testOutput;
 	@InjectMocks
 	Inverter inverter;
@@ -24,16 +24,17 @@ public class InverterTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		testInput.add(new Signal(true));
-		testInput.add(new Signal(false));
-		testInput.add(new Signal(true));
+		testOutput.add(new Signal(true));
 	}
 
 	@Test
 	public void testDoOperation() {
+		Signal correctOutput = new Signal(false);
+		inverter.receiveInputs(testInput.listIterator());
 		inverter.doOperation();
 		// test the output List directly vs using the class method
-		Signal result = testOutput.peekFirst();
-		assertThat(result, is(equalTo(new Signal(false))));
+		Signal result = inverter.getOutputAtPort(0);
+		assertThat(result.getValue(), is(equalTo(correctOutput.getValue())));
 	}
 
 	@Test
@@ -44,18 +45,17 @@ public class InverterTest {
 
 	@Test
 	public void testGetOutputAtPort() {
+//		inverter.input.add(new Signal(true));
+		inverter.receiveInputs(testInput.listIterator());
 		Signal result = inverter.getOutputAtPort(0);
-		assertThat(result, is(equalTo(new Signal(false))));
+		assertThat(result.getValue(), is(equalTo(testInput.get(0).getValue())));
 	}
 
 	@Test
 	public void testGetOutputs() {
-		LinkedList<Signal> correctOutput = new LinkedList<>();
-		correctOutput.add(new Signal(false));
-		correctOutput.add(new Signal(true));
-		correctOutput.add(new Signal(false));
+		inverter.receiveInputs(testInput.listIterator());
 		LinkedList<Signal> result = inverter.getOutputs();
-		assertThat(result, is(equalTo(correctOutput)));
+		assertThat(result, is(equalTo(testInput)));
 	}
 }
 
