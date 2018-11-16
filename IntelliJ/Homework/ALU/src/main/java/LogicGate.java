@@ -3,7 +3,7 @@ import java.util.ListIterator;
 
 public abstract class LogicGate {
    LinkedList<Signal> input = new LinkedList<>();
-   LinkedList<Signal> output = input;
+   LinkedList<Signal> output = new LinkedList<>();
 
     private int inputCount;
     private int outputCount;
@@ -15,11 +15,13 @@ public abstract class LogicGate {
     public LogicGate() {
         inputCount = 1;
         outputCount = 1;
+        output.addAll(input);
     }
 
     public LogicGate(int inputPortCount, int outputPortCount) {
         inputCount = inputPortCount;
         outputCount = outputPortCount;
+        output.addAll(input);
     }
 
     public LinkedList<Signal> getOutputs() {
