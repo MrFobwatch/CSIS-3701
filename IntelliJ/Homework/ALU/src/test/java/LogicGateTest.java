@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 public class LogicGateTest {
     //    abstract LogicGate createLogicGate();
-    //    @Mock LinkedList<Signal> input;
+	//    @Mock LinkedList<Signal> testInput;
     //    @Mock LinkedList<Signal> output;
     //    @InjectMocks LogicGate logicGate;
 
@@ -33,7 +33,7 @@ public class LogicGateTest {
     }
 
     @Test
-    public void testGetOutputs() throws Exception {
+    public void testGetOutputs() {
         Signal result[] = new Signal[testInput.size()];
         logicGate.receiveInputs(testInput.listIterator());
         logicGate.getOutputs().toArray(result);
@@ -41,14 +41,14 @@ public class LogicGateTest {
     }
 
     @Test
-    public void testGetOutputAtPort() throws Exception {
+    public void testGetOutputAtPort() {
         logicGate.receiveInputs(testInput.listIterator());
         Signal result = logicGate.getOutputAtPort(0);
         assertThat(result,is(equalTo( testInput.get(0))));
     }
 
     @Test
-    public void testReceiveInputs() throws Exception {
+    public void testReceiveInputs() {
         Signal result[] = new Signal[testInput.size()];
         logicGate.receiveInputs(testInput.listIterator());
         logicGate.input.toArray(result);

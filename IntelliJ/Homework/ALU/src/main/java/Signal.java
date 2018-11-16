@@ -16,7 +16,7 @@ public class Signal {
         this.highZ = highZ;
     }
 
-    private boolean isState() {
+	boolean isState() {
         return state;
     }
 
