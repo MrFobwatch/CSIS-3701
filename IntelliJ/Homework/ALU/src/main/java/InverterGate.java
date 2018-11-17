@@ -1,5 +1,5 @@
-public class Inverter extends LogicGate {
-	public Inverter(){
+public class InverterGate extends LogicGate {
+	public InverterGate(){
 		super(1,1);
 
 	}

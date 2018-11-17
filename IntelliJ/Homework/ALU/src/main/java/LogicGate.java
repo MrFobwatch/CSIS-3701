@@ -2,8 +2,8 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 public abstract class LogicGate {
-   LinkedList<Signal> input = new LinkedList<>();
-   LinkedList<Signal> output = new LinkedList<>();
+    LinkedList<Signal> input = new LinkedList<>();
+    LinkedList<Signal> output = new LinkedList<>();
 
     private int inputCount;
     private int outputCount;
@@ -38,5 +38,4 @@ public abstract class LogicGate {
     public Signal getOutputAtPort(int port) {
         return output.get(port);
     }
-
 }
