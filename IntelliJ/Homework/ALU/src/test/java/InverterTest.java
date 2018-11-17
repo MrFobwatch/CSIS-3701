@@ -24,17 +24,15 @@ public class InverterTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		testInput.add(new Signal(true));
-		testOutput.add(new Signal(true));
+		testOutput.add(new Signal(false));
 	}
 
 	@Test
 	public void testDoOperation() {
-		Signal correctOutput = new Signal(false);
 		inverter.receiveInputs(testInput.listIterator());
 		inverter.doOperation();
-		// test the output List directly vs using the class method
 		Signal result = inverter.getOutputAtPort(0);
-		assertThat(result.getValue(), is(equalTo(correctOutput.getValue())));
+		assertThat(result.getValue(), is(equalTo(testOutput.get(0).getValue())));
 	}
 
 	@Test
@@ -45,17 +43,21 @@ public class InverterTest {
 
 	@Test
 	public void testGetOutputAtPort() {
-//		inverter.input.add(new Signal(true));
-		inverter.receiveInputs(testInput.listIterator());
+		inverter.input.add(new Signal(true));
+		inverter.doOperation();
+		//		inverter.receiveInputs(testInput.listIterator());
 		Signal result = inverter.getOutputAtPort(0);
-		assertThat(result.getValue(), is(equalTo(testInput.get(0).getValue())));
+		assertThat(result.getValue(), is(equalTo(testOutput.get(0).getValue())));
 	}
 
 	@Test
 	public void testGetOutputs() {
 		inverter.receiveInputs(testInput.listIterator());
+		inverter.doOperation();
 		LinkedList<Signal> result = inverter.getOutputs();
-		assertThat(result, is(equalTo(testInput)));
+		assertThat(
+				result.getLast().getValue(),
+				is(equalTo(testOutput.getLast().getValue())));
 	}
 }
 

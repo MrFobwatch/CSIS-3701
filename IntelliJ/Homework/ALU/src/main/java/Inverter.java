@@ -6,13 +6,10 @@ public class Inverter extends LogicGate {
 	public void doOperation(){
 		output.clear();
 		int index = 0;
-		while (input.listIterator().hasNext()) {
-
-			Signal currentInput = this.input.listIterator().next();
+		for (Signal currentInput: this.input) {
 			boolean currentState = currentInput.isState();
 			Signal output = new Signal(!currentState);
 			this.output.add(index++, output);
 		}
-
 	}
 }
