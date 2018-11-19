@@ -12,7 +12,8 @@ public class AndGate extends LogicGate {
 
         Signal inputA = this.input.get(0);
         Signal inputB = this.input.get(1);
-        Signal outputC = new Signal((inputA.isState() && inputB.isState()));
+        boolean condition = inputA.isState() && inputB.isState();
+        Signal outputC = new Signal(condition);
         this.output.add(outputC);
     }
 }
