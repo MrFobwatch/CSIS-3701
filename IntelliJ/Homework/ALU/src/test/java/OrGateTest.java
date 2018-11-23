@@ -18,13 +18,13 @@ public class OrGateTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        testInput.add(new Signal(true));
-        testInput.add(new Signal(true));
-        testOutput.add(new Signal(true));
+            testInput.add(new Signal(true));
+            testInput.add(new Signal(true));
+            testOutput.add(new Signal(true));
     }
 
     @Test
-    public void testDoOperation() {
+    public void testDoOperation() throws Exception {
         orGate.receiveInputs(testInput.listIterator());
         orGate.doOperation();
         Signal result = orGate.getOutputAtPort(0);
