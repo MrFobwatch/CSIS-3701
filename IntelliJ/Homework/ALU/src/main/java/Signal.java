@@ -12,16 +12,12 @@ public class Signal {
         highZ = false;
     }
 
-    public void setHighZ(boolean highZ) {
-        this.highZ = highZ;
-    }
-
-	boolean isState() {
-        return state;
-    }
-
     public boolean isHighZ() {
         return highZ;
+    }
+
+    public void setHighZ(boolean highZ) {
+        this.highZ = highZ;
     }
 
     public int getValue() {
@@ -40,5 +36,9 @@ public class Signal {
         } else if (incomingSignal == 0) {
             state = false;
         }
+    }
+
+    boolean isState() {
+        return state;
     }
 }

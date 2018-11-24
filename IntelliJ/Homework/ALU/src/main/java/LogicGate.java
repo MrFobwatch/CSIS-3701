@@ -10,8 +10,6 @@ public abstract class LogicGate {
 
     //    public abstract void setInputs();
 
-    public abstract void doOperation();
-
     public LogicGate() {
         inputCount = 1;
         outputCount = 1;
@@ -23,6 +21,8 @@ public abstract class LogicGate {
         outputCount = outputPortCount;
         output.addAll(input);
     }
+
+    public abstract void doOperation();
 
     public LinkedList<Signal> getOutputs() {
         return output;
