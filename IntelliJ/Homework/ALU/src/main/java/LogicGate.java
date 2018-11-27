@@ -23,6 +23,7 @@ public abstract class LogicGate {
     }
 
     public abstract void doOperation();
+    public abstract Signal getResult();
 
     public LinkedList<Signal> getOutputs() {
         return output;

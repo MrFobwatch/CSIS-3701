@@ -1,12 +1,25 @@
 public class OrGate extends LogicGate {
+    private Signal inputA;
+    private Signal inputB;
+    private Signal outputC;
 
     @Override
     public void doOperation() {
         output.clear();
-
-        Signal inputA = this.input.get(0);
-        Signal inputB = this.input.get(1);
-        Signal outputC = new Signal((inputA.isState() || inputB.isState()));
+        inputA = this.input.get(0);
+        inputB = this.input.get(1);
+        outputC = new Signal((inputA.isState() || inputB.isState()));
         this.output.add(outputC);
+    }
+
+    @Override
+    public Signal getResult() {
+       return outputC;
+    }
+
+    public void receiveInputs(Signal inputA, Signal inputB){
+        this.inputA = inputA;
+        this.inputB = inputB;
+
     }
 }
