@@ -22,17 +22,12 @@ public class HalfAdder implements Component {
 
     @Override
     public void doOperation() {
-        //		XOR.input.clear();
-        //		XOR.input.add(A);
-        //		XOR.input.add(B);
-        //		XOR.doOperation();
-        //		Sum = XOR.getOutputAtPort(0);
-        //
-        //		AND.input.clear();
-        //		AND.input.add(A);
-        //		AND.input.add(B);
-        //		AND.doOperation();
-        //		Cout = AND.getOutputAtPort(0);
+        XOR.receiveInput(A, B);
+        XOR.doOperation();
+        Sum = XOR.getResult();
+        AND.receiveInput(A, B);
+        AND.doOperation();
+        Cout = AND.getResult();
     }
 
     public Signal getSum() {

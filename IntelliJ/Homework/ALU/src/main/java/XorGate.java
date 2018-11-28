@@ -11,9 +11,14 @@ public class XorGate extends LogicGate {
         super(inputPortCount);
     }
 
+    public void receiveInput(Signal inputA, Signal inputB) {
+        A = inputA;
+        B = inputB;
+    }
+
     @Override
     public void doOperation() {
-        C.changeState(((A.isState() || B.isState()) && (!A.isState() || !B.isState())));
+        Signal C = new Signal(((A.isState() || B.isState()) && (!A.isState() || !B.isState())));
     }
 
     @Override

@@ -4,9 +4,8 @@ public abstract class LogicGate {
     //    LinkedList<Signal> input = new LinkedList<>();
     //    LinkedList<Signal> output = new LinkedList<>();
     LinkedList<Signal> ports = new LinkedList<Signal>();
-    int inputPortCount;
+    private int inputPortCount;
 
-    //    public abstract void setInputs();
 
     public LogicGate() {}
 
