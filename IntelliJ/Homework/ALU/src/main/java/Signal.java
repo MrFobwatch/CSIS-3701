@@ -38,6 +38,10 @@ public class Signal {
         }
     }
 
+    public void changeState(boolean newState) {
+        state = newState;
+    }
+
     boolean isState() {
         return state;
     }

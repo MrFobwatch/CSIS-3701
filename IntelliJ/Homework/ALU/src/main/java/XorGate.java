@@ -1,17 +1,23 @@
 public class XorGate extends LogicGate {
+    Signal A;
+    Signal B;
+    Signal C;
+
+    public XorGate() {
+        super(2);
+    }
+
+    public XorGate(int inputPortCount) {
+        super(inputPortCount);
+    }
 
     @Override
     public void doOperation() {
-        output.clear();
-        int index = 0;
-        while (index < this.input.size()) {
-            Signal inputA = this.input.get(index++);
-            Signal inputB = this.input.get(index++);
-            boolean condition =
-                    ((inputA.isState() || inputB.isState())
-                            && (!inputA.isState() || !inputB.isState()));
-            Signal outputC = new Signal(condition);
-            this.output.add(outputC);
-        }
+        C.changeState(((A.isState() || B.isState()) && (!A.isState() || !B.isState())));
+    }
+
+    @Override
+    public Signal getResult() {
+        return C;
     }
 }
