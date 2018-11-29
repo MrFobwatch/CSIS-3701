@@ -7,17 +7,19 @@ import org.mockito.MockitoAnnotations;
 import java.util.LinkedList;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.when;
 
-public class OrGateTest {
+public class NorGateTest {
     @Mock Signal A;
     @Mock Signal B;
     @Mock Signal C;
+//    Signal C = mock(Signal.class, withSettings().verboseLogging());
     @Mock LinkedList<Signal> ports;
-    @InjectMocks OrGate orGate;
+    @InjectMocks NorGate norGate;
 
     @Before
     public void setUp() {
@@ -25,23 +27,13 @@ public class OrGateTest {
     }
 
     @Test
-    public void testReceiveInput() throws Exception {
-        Signal testInput = new Signal(true);
-        orGate.receiveInput(testInput, testInput);
-        Signal result = orGate.A;
-        assertThat(result, sameInstance(testInput));
-        result = orGate.B;
-        assertThat(result, sameInstance(testInput));
-    }
-
-    @Test
     public void testDoOperation00() throws Exception {
         when(A.isState()).thenReturn(false);
         when(B.isState()).thenReturn(false);
         doCallRealMethod().when(C).changeState(anyBoolean());
-        orGate.doOperation();
-        Signal result = orGate.C;
-        assertThat(result.isState(), is(equalTo(false)));
+        norGate.doOperation();
+        Signal result = norGate.C;
+        assertThat(result.isState(), is(equalTo(true)));
     }
 
     @Test
@@ -50,9 +42,9 @@ public class OrGateTest {
         when(B.isState()).thenReturn(true);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
-        assertThat(result.isState(), is(equalTo(true)));
+        norGate.doOperation();
+        Signal result = norGate.C;
+        assertThat(result.isState(), is(equalTo(false)));
     }
 
     @Test
@@ -61,9 +53,9 @@ public class OrGateTest {
         when(B.isState()).thenReturn(false);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
-        assertThat(result.isState(), is(equalTo(true)));
+        norGate.doOperation();
+        Signal result = norGate.C;
+        assertThat(result.isState(), is(equalTo(false)));
     }
 
     @Test
@@ -72,17 +64,9 @@ public class OrGateTest {
         when(B.isState()).thenReturn(true);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
-        assertThat(result.isState(), is(equalTo(true)));
-    }
-
-    @Test
-    public void testGetResult() throws Exception {
-        when(C.isState()).thenReturn(true);
-
-        Signal result = orGate.getResult();
-        assertThat(result, sameInstance(orGate.C));
+        norGate.doOperation();
+        Signal result = norGate.C;
+        assertThat(result.isState(), is(equalTo(false)));
     }
 }
 
