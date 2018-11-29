@@ -39,6 +39,7 @@ public class AndGateTest {
 		when(A.isState()).thenReturn(false);
 		when(B.isState()).thenReturn(false);
 		doCallRealMethod().when(C).changeState(anyBoolean());
+		doCallRealMethod().when(C).isState();
 		andGate.doOperation();
 		Signal result = andGate.C;
 		assertThat(result.isState(), is(equalTo(false)));

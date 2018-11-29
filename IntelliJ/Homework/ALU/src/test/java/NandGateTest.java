@@ -12,12 +12,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
 
-public class OrGateTest {
+public class NandGateTest {
     @Mock Signal A;
     @Mock Signal B;
     @Mock Signal C;
     @Mock LinkedList<Signal> ports;
-    @InjectMocks OrGate orGate;
+    @InjectMocks NandGate nandGate;
 
     @Before
     public void setUp() {
@@ -27,10 +27,10 @@ public class OrGateTest {
     @Test
     public void testReceiveInput() throws Exception {
         Signal testInput = new Signal(true);
-        orGate.receiveInput(testInput, testInput);
-        Signal result = orGate.A;
+        nandGate.receiveInput(testInput, testInput);
+        Signal result = nandGate.A;
         assertThat(result, sameInstance(testInput));
-        result = orGate.B;
+        result = nandGate.B;
         assertThat(result, sameInstance(testInput));
     }
 
@@ -40,9 +40,9 @@ public class OrGateTest {
         when(B.isState()).thenReturn(false);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
-        assertThat(result.isState(), is(equalTo(false)));
+        nandGate.doOperation();
+        Signal result = nandGate.C;
+        assertThat(result.isState(), is(equalTo(true)));
     }
 
     @Test
@@ -51,8 +51,8 @@ public class OrGateTest {
         when(B.isState()).thenReturn(true);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
+        nandGate.doOperation();
+        Signal result = nandGate.C;
         assertThat(result.isState(), is(equalTo(true)));
     }
 
@@ -62,8 +62,8 @@ public class OrGateTest {
         when(B.isState()).thenReturn(false);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
+        nandGate.doOperation();
+        Signal result = nandGate.C;
         assertThat(result.isState(), is(equalTo(true)));
     }
 
@@ -73,17 +73,17 @@ public class OrGateTest {
         when(B.isState()).thenReturn(true);
         doCallRealMethod().when(C).changeState(anyBoolean());
         doCallRealMethod().when(C).isState();
-        orGate.doOperation();
-        Signal result = orGate.C;
-        assertThat(result.isState(), is(equalTo(true)));
+        nandGate.doOperation();
+        Signal result = nandGate.C;
+        assertThat(result.isState(), is(equalTo(false)));
     }
 
     @Test
     public void testGetResult() throws Exception {
         when(C.isState()).thenReturn(true);
 
-        Signal result = orGate.getResult();
-        assertThat(result, sameInstance(orGate.C));
+        Signal result = nandGate.getResult();
+        assertThat(result, sameInstance(nandGate.C));
     }
 }
 
