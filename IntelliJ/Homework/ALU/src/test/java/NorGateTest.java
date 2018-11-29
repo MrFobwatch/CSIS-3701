@@ -6,8 +6,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doCallRealMethod;
@@ -31,6 +31,7 @@ public class NorGateTest {
         when(A.isState()).thenReturn(false);
         when(B.isState()).thenReturn(false);
         doCallRealMethod().when(C).changeState(anyBoolean());
+        doCallRealMethod().when(C).isState();
         norGate.doOperation();
         Signal result = norGate.C;
         assertThat(result.isState(), is(equalTo(true)));
@@ -68,6 +69,17 @@ public class NorGateTest {
         Signal result = norGate.C;
         assertThat(result.isState(), is(equalTo(false)));
     }
+
+    @Test
+    public void testReceiveInput() throws Exception {
+        Signal testInput = new Signal(true);
+        norGate.receiveInput(testInput, testInput);
+        Signal result = norGate.A;
+        assertThat(result, sameInstance(testInput));
+        result = norGate.B;
+        assertThat(result, sameInstance(testInput));
+    }
+
 }
 
 // Generated with love by TestMe :) Please report issues and submit feature requests at:
