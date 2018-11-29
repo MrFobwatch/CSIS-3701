@@ -34,4 +34,8 @@ public abstract class LogicGate {
     public Signal getOutputAtPort(int port) {
         return ports.get(inputPortCount + port);
     }
+
+    public void receiveInput(Signal inputSignal) {
+        ports.set(0, inputSignal);
+    }
 }

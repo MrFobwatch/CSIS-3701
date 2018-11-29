@@ -33,6 +33,7 @@ public class LogicGateTest {
 
         this.logicGate =
                 new LogicGate() {
+                    Signal currentSignal;
                     @Override
                     public void doOperation() {
 //                        logicGate.output = logicGate.input;
@@ -40,11 +41,11 @@ public class LogicGateTest {
 
                     @Override
                     public Signal getResult() {
-                        return logicGate.ports.getLast();
+                        return currentSignal;
                     }
-
-                    public void receiveInput() {
-
+                    @Override
+                    public void receiveInput(Signal input) {
+                        this.currentSignal = input;
                     }
                 };
     }
@@ -79,7 +80,7 @@ public class LogicGateTest {
 
     @Test
     public void testGetResult(){
-//        logicGate.receiveInputs(testInput.listIterator());
+        logicGate.receiveInput(testSignal);
         logicGate.doOperation();
         Signal result = logicGate.getResult();
         assertThat(result.isState(), is(equalTo(testSignal.isState())));
