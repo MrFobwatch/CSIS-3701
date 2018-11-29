@@ -39,6 +39,7 @@ public class XorGateTest {
         when(A.isState()).thenReturn(false);
         when(B.isState()).thenReturn(false);
         doCallRealMethod().when(C).changeState(anyBoolean());
+        doCallRealMethod().when(C).isState();
         xorGate.doOperation();
         Signal result = xorGate.C;
         assertThat(result.isState(), is(equalTo(false)));
