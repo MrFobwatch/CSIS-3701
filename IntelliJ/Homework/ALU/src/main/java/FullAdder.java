@@ -26,7 +26,7 @@ public class FullAdder implements Component {
         halfAdderB.doOperation();
         Sum = halfAdderB.getSum();
 
-        orGate.receiveInputs(halfAdderA.getCout(), halfAdderB.getCout());
+        orGate.receiveInput(halfAdderA.getCout(), halfAdderB.getCout());
         orGate.doOperation();
         Cout = orGate.getResult();
     }

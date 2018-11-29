@@ -38,7 +38,6 @@ public class LogicGateTest {
                     public void doOperation() {
 //                        logicGate.output = logicGate.input;
                     }
-
                     @Override
                     public Signal getResult() {
                         return currentSignal;
@@ -50,32 +49,15 @@ public class LogicGateTest {
                 };
     }
 
-    @Test
+//    @Test
     public void testReceiveInputs() {
-//        Signal result[] = new Signal[testInput.size()];
-//        logicGate.receiveInputs(testInput.listIterator());
-//        logicGate.input.toArray(result);
-//        assertThat(result, is(equalTo(testInput.toArray())));
     }
 
-    @Test
-    public void testGetOutputAtPort() {
-//        logicGate.receiveInputs(testInput.listIterator());
-//        logicGate.doOperation();
-//        Signal result = logicGate.getOutputAtPort(0);
-//        assertThat(result.getValue(), is(equalTo(testOutput.get(0).getValue())));
-    }
+//    @Test
+    public void testGetOutputAtPort() {}
 
-    @Test
+//    @Test
     public void testGetOutputs() {
-//        logicGate.receiveInputs(testInput.listIterator());
-//        logicGate.doOperation();
-//        LinkedList<Signal> outputs = logicGate.getOutputs();
-//        int index = 0;
-//        for (Iterator<Signal> iterator = outputs.iterator(); iterator.hasNext(); ) {
-//            Signal result = iterator.next();
-//            assertThat(result.getValue(), is(equalTo(testOutput.get(index++).getValue())));
-//        }
     }
 
     @Test

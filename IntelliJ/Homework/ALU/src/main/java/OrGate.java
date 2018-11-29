@@ -1,7 +1,7 @@
 public class OrGate extends LogicGate {
-    private Signal inputA;
-    private Signal inputB;
-    private Signal outputC;
+    Signal A;
+    Signal B;
+    Signal C;
 
     public OrGate() {
         super(2);
@@ -13,20 +13,16 @@ public class OrGate extends LogicGate {
 
     @Override
     public void doOperation() {
-        //        output.clear();
-        //        inputA = this.input.get(0);
-        //        inputB = this.input.get(1);
-        //        outputC = new Signal((inputA.isState() || inputB.isState()));
-        //        this.output.add(outputC);
+        C.changeState(A.isState() || B.isState());
     }
 
     @Override
     public Signal getResult() {
-        return outputC;
+        return C;
     }
 
-    public void receiveInputs(Signal inputA, Signal inputB) {
-        this.inputA = inputA;
-        this.inputB = inputB;
+    public void receiveInput(Signal inputA, Signal inputB) {
+        this.A = inputA;
+        this.B = inputB;
     }
 }
