@@ -17,8 +17,7 @@ public class HalfAdderTest {
     @Mock Signal B;
     @Mock Signal Sum;
     @Mock Signal Cout;
-    @Spy
-    XorGate XOR;
+    @Spy XorGate XOR;
     @Spy AndGate AND;
     @InjectMocks HalfAdder halfAdder;
 
@@ -52,11 +51,13 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum11() throws Exception {
-        Signal Value0 = mock(Signal.class);
-        Signal Value1 = mock(Signal.class);
-        when(Value0.isState()).thenReturn(true);
-        when(Value1.isState()).thenReturn(true);
-        halfAdder.receiveInput(Value0, Value1);
+//        Signal Value0 = mock(Signal.class);
+//        Signal Value1 = mock(Signal.class);
+//        when(Value0.isState()).thenReturn(true);
+//        when(Value1.isState()).thenReturn(true);
+        when(A.isState()).thenReturn(true);
+        when(B.isState()).thenReturn(true);
+//        halfAdder.receiveInput(Value0, Value1);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(1)));
@@ -64,11 +65,13 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum10() throws Exception {
-        Signal Value0 = mock(Signal.class);
-        Signal Value1 = mock(Signal.class);
-        when(Value0.isState()).thenReturn(true);
-        when(Value1.isState()).thenReturn(false);
-        halfAdder.receiveInput(Value0, Value1);
+//        Signal Value0 = mock(Signal.class);
+//        Signal Value1 = mock(Signal.class);
+//        when(Value0.isState()).thenReturn(true);
+//        when(Value1.isState()).thenReturn(false);
+//        halfAdder.receiveInput(Value0, Value1);
+        when(A.isState()).thenReturn(true);
+        when(B.isState()).thenReturn(false);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(0)));
@@ -76,11 +79,13 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum01() throws Exception {
-        Signal Value0 = mock(Signal.class);
-        Signal Value1 = mock(Signal.class);
-        when(Value0.isState()).thenReturn(false);
-        when(Value1.isState()).thenReturn(true);
-        halfAdder.receiveInput(Value0, Value1);
+//        Signal Value0 = mock(Signal.class);
+//        Signal Value1 = mock(Signal.class);
+//        when(Value0.isState()).thenReturn(false);
+//        when(Value1.isState()).thenReturn(true);
+//        halfAdder.receiveInput(Value0, Value1);
+        when(A.isState()).thenReturn(false);
+        when(B.isState()).thenReturn(true);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(0)));

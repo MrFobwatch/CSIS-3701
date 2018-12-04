@@ -18,7 +18,8 @@ public class AndGate extends LogicGate {
 
     @Override
     public void doOperation() {
-        C.changeState(A.isState() && B.isState());
+//        C.changeState(A.isState() && B.isState());
+        C = new Signal(A.isState() && B.isState());
     }
 
     @Override
