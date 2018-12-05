@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -13,23 +12,28 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class FullAdderTest {
     @Mock LinkedList<Signal> outputList;
     @Mock HalfAdder halfAdderA;
     @Mock HalfAdder halfAdderB;
+    @Mock OrGate orGate;
     @Mock Signal A;
     @Mock Signal B;
     @Mock Signal Cin;
     @Mock Signal Sum;
     @Mock Signal Cout;
-    @Mock OrGate orGate;
+    Signal trueTestSignal;
+    Signal falseTestSignal;
+
     @InjectMocks FullAdder fullAdder;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        trueTestSignal = new Signal(true);
+        falseTestSignal = new Signal(false);
     }
 
     @Test
@@ -46,9 +50,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum000() throws Exception {
-        when(A.isState()).thenReturn(false);
-        when(B.isState()).thenReturn(false);
-        when(Cin.isState()).thenReturn(false);
+        when(halfAdderA.getSum()).thenReturn(falseTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(falseTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(falseTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(falseTestSignal); // HalfAdderA.Cout AND Cin
+        when(orGate.getResult()).thenReturn(falseTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(0)));
@@ -56,9 +62,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum001() throws Exception {
-        when(A.isState()).thenReturn(false);
-        when(B.isState()).thenReturn(true);
-        when(Cin.isState()).thenReturn(true);
+        when(halfAdderA.getSum()).thenReturn(falseTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(trueTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(falseTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(falseTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(falseTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(0)));
@@ -66,9 +74,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum010() throws Exception {
-        when(A.isState()).thenReturn(false);
-        when(B.isState()).thenReturn(true);
-        when(Cin.isState()).thenReturn(false);
+        when(halfAdderA.getSum()).thenReturn(trueTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(trueTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(falseTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(falseTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(falseTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(0)));
@@ -76,9 +86,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum011() throws Exception {
-        when(A.isState()).thenReturn(false);
-        when(B.isState()).thenReturn(true);
-        when(Cin.isState()).thenReturn(true);
+        when(halfAdderA.getSum()).thenReturn(trueTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(falseTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(falseTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(trueTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(trueTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(1)));
@@ -86,9 +98,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum100() throws Exception {
-        when(A.isState()).thenReturn(true);
-        when(B.isState()).thenReturn(false);
-        when(Cin.isState()).thenReturn(false);
+        when(halfAdderA.getSum()).thenReturn(trueTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(trueTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(falseTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(falseTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(falseTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(0)));
@@ -96,9 +110,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum101() throws Exception {
-        when(A.isState()).thenReturn(true);
-        when(B.isState()).thenReturn(false);
-        when(Cin.isState()).thenReturn(true);
+        when(halfAdderA.getSum()).thenReturn(trueTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(falseTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(falseTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(trueTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(trueTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(1)));
@@ -106,9 +122,11 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum110() throws Exception {
-        when(A.isState()).thenReturn(true);
-        when(B.isState()).thenReturn(true);
-        when(Cin.isState()).thenReturn(false);
+        when(halfAdderA.getSum()).thenReturn(falseTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(falseTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(trueTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(falseTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(trueTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(1)));
@@ -116,19 +134,20 @@ public class FullAdderTest {
 
     @Test
     public void testDoOperationReturnSum111() throws Exception {
-        when(A.isState()).thenReturn(true);
-        when(B.isState()).thenReturn(true);
-        when(Cin.isState()).thenReturn(true);
+        when(halfAdderA.getSum()).thenReturn(falseTestSignal); // A XOR B
+        when(halfAdderB.getSum()).thenReturn(trueTestSignal); // HalfAdderA.Sum XOR Cin
+        when(halfAdderA.getCout()).thenReturn(trueTestSignal); // A AND B
+        when(halfAdderB.getCout()).thenReturn(falseTestSignal); // HalfAdderA.Sum AND Cin
+        when(orGate.getResult()).thenReturn(trueTestSignal); // HalfAdderB.Cout OR HalfAdderA.Cout
         fullAdder.doOperation();
         assertThat(fullAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(fullAdder.getCout().getValue(), is(equalTo(1)));
     }
 
-
     @Test
     public void testReturnOutputs() throws Exception {
         ListIterator result = fullAdder.returnOutputs();
-        Assert.assertEquals(null, result);
+        Assert.assertNull(result);
     }
 }
 
