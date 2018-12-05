@@ -18,8 +18,7 @@ public class XorGate extends LogicGate {
 
     @Override
     public void doOperation() {
-        C = new Signal(((A.isState() || B.isState()) && (!A.isState() || !B.isState())));
-//        C.changeState((A.isState() || B.isState()) && (!A.isState() || !B.isState()));
+	    C.changeState((A.isState() || B.isState()) && (!A.isState() || !B.isState()));
     }
 
     @Override
