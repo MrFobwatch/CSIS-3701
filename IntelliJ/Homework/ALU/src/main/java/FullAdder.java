@@ -18,6 +18,11 @@ public class FullAdder implements Component {
         Cin = inputCin;
     }
 
+    public void receiveInput(Signal inputA, Signal inputB) {
+        A = inputA;
+        B = inputB;
+    }
+
     @Override
     public void doOperation() {
         halfAdderA.receiveInput(A, B);
