@@ -6,8 +6,12 @@ public class MultiBitSignal {
 
 
     private void setDecimal() {
-    	String binaryValue = bitVector.toArray().toString();
-        decimal = Integer.parseInt(binaryValue, 2);
+    	StringBuilder binaryValue = new StringBuilder();
+    	for(Signal sig: bitVector){
+    	    binaryValue.append(sig.toString());
+
+        }
+        decimal = Integer.parseInt(binaryValue.toString(), 2);
     }
 
     public MultiBitSignal(Signal... numOfBit) {

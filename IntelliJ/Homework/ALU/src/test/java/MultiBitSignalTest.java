@@ -1,9 +1,6 @@
-import net.bytebuddy.build.ToStringPlugin;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Vector;
 
@@ -11,19 +8,19 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsSame.sameInstance;
-import static org.mockito.Mockito.*;
 
 public class MultiBitSignalTest {
     @Mock Vector<Signal> bitVector;
-    Signal trueTestSignal = new Signal(true);
+    Signal trueTestSignal;
     Signal falseTestSignal;
     MultiBitSignal multiBitSignal;
 
     @Before
     public void setUp() {
-        this.multiBitSignal = new MultiBitSignal(trueTestSignal);
-//        trueTestSignal = new Signal(true);
+        trueTestSignal = new Signal(true);
         falseTestSignal = new Signal(false);
+        this.multiBitSignal = new MultiBitSignal(trueTestSignal, trueTestSignal);
+
     }
 
 
@@ -48,7 +45,7 @@ public class MultiBitSignalTest {
     @Test
     public void testGetDecimal() throws Exception {
         String fifteen = "1111";
-        multiBitSignal.receiveInput(fifteen);
+        multiBitSignal.receiveInput(trueTestSignal, trueTestSignal, trueTestSignal, trueTestSignal);
         int result = multiBitSignal.getDecimal();
         assertThat(result, is(equalTo(15)));
     }

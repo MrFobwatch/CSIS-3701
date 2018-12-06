@@ -20,16 +20,6 @@ public class Signal {
         this.highZ = highZ;
     }
 
-    public int getValue() {
-        int value = -1;
-        if (state) {
-            value = 1;
-        } else if (!state) {
-            value = 0;
-        }
-        return value;
-    }
-
     public void receive(int incomingSignal) {
         if (incomingSignal == 1) {
             state = true;
@@ -40,6 +30,21 @@ public class Signal {
 
     public void changeState(boolean newState) {
         this.state = newState;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.getValue());
+    }
+
+    public int getValue() {
+        int value = -1;
+        if (state) {
+            value = 1;
+        } else if (!state) {
+            value = 0;
+        }
+        return value;
     }
 
     boolean isState() {
