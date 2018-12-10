@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.Vector;
 
 public class MultiBitSignal {
@@ -7,13 +6,11 @@ public class MultiBitSignal {
 
 
     private void setDecimal() {
-    	String binaryValue = "";
-    	Iterator<Signal> binaryIterator = bitVector.iterator();
-    	while (binaryIterator.hasNext()){
-    		int bitValue = binaryIterator.next().getValue();
-    		binaryValue += binaryValue + Integer.toString(bitValue);
-	    }
-        decimal = Integer.parseInt(binaryValue, 2);
+    	StringBuilder binaryValue = new StringBuilder();
+    	for(Signal sig: bitVector){
+    	    binaryValue.append(sig.toString());
+        }
+        decimal = Integer.parseInt(binaryValue.toString(), 2);
     }
 
     public MultiBitSignal(Signal... numOfBit) {
