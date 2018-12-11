@@ -14,6 +14,7 @@ public class XorGate extends LogicGate {
     public void receiveInput(Signal inputA, Signal inputB) {
         A = inputA;
         B = inputB;
+        C = new Signal(true);
     }
 
     @Override

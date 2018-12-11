@@ -1,44 +1,50 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MultiBitSignal {
     private List<Signal> signalList = new ArrayList<>();
     private int decimal;
 
+//    public MultiBitSignal(Signal... numOfBit) {
+//        Collections.addAll(signalList, numOfBit);
+//        setDecimal();
+//    }
+
     private void setDecimal() {
         StringBuilder binaryValue = new StringBuilder();
         for (Signal sig : signalList) {
-            binaryValue.append(sig.toString());
+            binaryValue.append(((Integer.toString(sig.getValue()))));
         }
         decimal = Integer.parseInt(binaryValue.toString(), 2);
     }
 
-    public MultiBitSignal(Signal... numOfBit) {
-        //        signalList.setSize(numOfBit.length);
-        for (int bitCount = 0; bitCount < numOfBit.length; bitCount++) {
-            Signal singleBit = numOfBit[bitCount];
-            signalList.set(bitCount, singleBit);
+    public MultiBitSignal(String numberInBinary) {
+        for (int bitCount = 0; bitCount < numberInBinary.length(); bitCount++) {
+            char bitValue = numberInBinary.charAt(bitCount);
+            if (bitValue == '1') {
+                signalList.add(new Signal(true));
+            } else if (bitValue == '0') {
+                signalList.add( new Signal(false));
+            }
         }
         setDecimal();
     }
 
     public void receiveInput(Signal... numOfBit) {
-        //        signalList.setSize(numOfBit.length);
-        for (int bitCount = 0; bitCount < numOfBit.length; bitCount++) {
-            Signal singleBit = numOfBit[bitCount];
-            signalList.set(bitCount, singleBit);
-        }
+        signalList.clear();
+        Collections.addAll(signalList, numOfBit);
         setDecimal();
     }
 
     public void receiveInput(String numberInBinary) {
-        //        signalList.setSize(numberInBinary.length());
+//        signalList.clear();
         for (int bitCount = 0; bitCount < numberInBinary.length(); bitCount++) {
             char bitValue = numberInBinary.charAt(bitCount);
             if (bitValue == '1') {
-                signalList.get(bitCount).changeState(true);
+                signalList.set(bitCount, new Signal(true));
             } else if (bitValue == '0') {
-                signalList.get(bitCount).changeState(true);
+                signalList.set(bitCount, new Signal(false));
             }
         }
         setDecimal();

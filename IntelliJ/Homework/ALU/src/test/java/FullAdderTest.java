@@ -15,8 +15,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.when;
 
 public class FullAdderTest {
-    @Mock
-    List<Signal> outputList;
+    @Mock List<Signal> outputList;
     @Mock HalfAdder halfAdderA;
     @Mock HalfAdder halfAdderB;
     @Mock OrGate orGate;

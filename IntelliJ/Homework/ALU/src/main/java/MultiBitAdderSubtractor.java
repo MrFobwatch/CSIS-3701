@@ -1,39 +1,66 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
-import java.util.Vector;
 
 public class MultiBitAdderSubtractor implements Component {
-    Vector<FullAdder> fullAdders = new Vector<>();
-    Vector<XorGate> xorGates = new Vector<>();
-    Vector<Signal> inputAs = new Vector<>();
-    Vector<Signal> inputBs = new Vector<>();
+    List<FullAdder> fullAdders = new ArrayList<>();
+    List<XorGate> xorGates = new ArrayList<>();
+    List<Signal> inputAs = new ArrayList<>();
+    List<Signal> inputBs = new ArrayList<>();
     Signal Cin = new Signal(); // Used for 2s Complement
     Signal Cout;
 
     public MultiBitAdderSubtractor(int numberOfBits) {
-        fullAdders.setSize(numberOfBits);
-        xorGates.setSize(numberOfBits);
         Cin.changeState(false);
     }
 
     public void receiveInputs(Signal... inputs) { // Load Values into Gates
-
-        for (int bitCount = 0; bitCount < inputs.length / 2; bitCount++) {
+        xorGates.clear();
+        fullAdders.clear();
+        inputAs.clear();
+        inputBs.clear();
+        for (int bitCount = 0; bitCount < (inputs.length / 2); bitCount++) {
             Signal A = inputs[bitCount];
             Signal B = inputs[bitCount + inputs.length / 2];
-            FullAdder adder = new FullAdder();
-            XorGate xorGate = new XorGate();
-            if (bitCount == 0) {
-                xorGate.receiveInput(B, Cin);
-//                xorGate.doOperation(); // running this just to be safe
-                adder.receiveInput(A, xorGate.getResult(), Cin);
-            } else {
-                adder.receiveInput(
-                        A,
-                        xorGate.getResult(),
-                        fullAdders.get(bitCount - 1).Cout); // Get previous Cout and pipe to Cin
-            }
-            xorGates.set(bitCount, xorGate);
-            fullAdders.set(bitCount, adder);
+            setGateInputs(bitCount, A, B, Cin, fullAdders, xorGates);
+            inputAs.add(A);
+            inputBs.add(B);
+        }
+    }
+
+    private static void setGateInputs(
+            int bitCount,
+            Signal a,
+            Signal b,
+            Signal cin,
+            List<FullAdder> fullAdders,
+            List<XorGate> xorGates) {
+        FullAdder adder = new FullAdder();
+        XorGate xorGate = new XorGate();
+        if (bitCount == 0) {
+            xorGate.receiveInput(b, cin);
+            xorGate.doOperation();
+            //                xorGate.doOperation(); // running this just to be safe
+            adder.receiveInput(a, xorGate.getResult(), cin);
+        } else {
+            adder.receiveInput(
+                    a,
+                    xorGate.getResult(),
+                    fullAdders.get(bitCount - 1).Cout); // Get previous Cout and pipe to Cin
+        }
+        xorGates.add(xorGate);
+        fullAdders.add(adder);
+    }
+
+    public void receiveInputs(List<Signal> inputs) {
+        xorGates.clear();
+        fullAdders.clear();
+        for (int bitCount = 0; bitCount < inputs.size() / 2; bitCount++) {
+            Signal A = inputs.get(bitCount);
+            Signal B = inputs.get(bitCount + inputs.size() / 2);
+            setGateInputs(bitCount, A, B, Cin, fullAdders, xorGates);
+            inputAs.add(A);
+            inputBs.add(B);
         }
     }
 
@@ -41,22 +68,46 @@ public class MultiBitAdderSubtractor implements Component {
         Cin.changeState(true);
     }
 
-    public void enableAddition(){
-    	Cin.changeState(false);
+    public void enableAddition() {
+        Cin.changeState(false);
     }
 
     @Override
-    public void doOperation() { //should only be called after receiveInput
-    	for (XorGate xorGate : xorGates){
-    		xorGate.doOperation();
-	    }
-    	for (FullAdder fullAdder : fullAdders){
-    		fullAdder.doOperation();
-	    }
+    public void doOperation() { // should only be called after receiveInput
+        for (XorGate thisXorGate : xorGates) {
+            thisXorGate.doOperation();
+        }
+        for (FullAdder thisfullAdder : fullAdders) {
+            thisfullAdder.doOperation();
+        }
     }
 
     @Override
     public ListIterator returnOutputs() {
-        return null;
+        return fullAdders.listIterator();
+    }
+
+    public Signal getCout() {
+        return Cout;
+    }
+
+    public List<Signal> getInputAs() {
+        return inputAs;
+    }
+
+    public List<Signal> getInputBs() {
+        return inputBs;
+    }
+
+    @Override
+    public String toString() {
+        return "MultiBitAdderSubtractor{" +
+                       "fullAdders=" + fullAdders +
+                       ", xorGates=" + xorGates +
+                       ", inputAs=" + inputAs +
+                       ", inputBs=" + inputBs +
+                       ", Cin=" + Cin +
+                       ", Cout=" + Cout +
+                       '}';
     }
 }
