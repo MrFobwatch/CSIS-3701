@@ -86,7 +86,20 @@ public class MultiBitAdderSubtractor implements Component {
 
     @Override
     public ListIterator returnOutputs() {
-        return fullAdders.listIterator();
+        List<Signal> sumList = new ArrayList<>();
+        for(FullAdder fullAdder : fullAdders){
+            sumList.add(fullAdder.getSum());
+        }
+        return sumList.listIterator();
+    }
+
+    public List returnOutputList(){
+        List<Signal> sumList = new ArrayList<>();
+        for(FullAdder fullAdder : fullAdders){
+            sumList.add(fullAdder.getSum());
+        }
+        return sumList;
+
     }
 
     public Signal getCout() {

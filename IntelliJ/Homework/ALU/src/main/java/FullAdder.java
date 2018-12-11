@@ -8,10 +8,30 @@ public class FullAdder implements Component {
     HalfAdder halfAdderB;
     Signal A;
     Signal B;
-    Signal Cin;
-    Signal Sum;
-    Signal Cout;
-    OrGate orGate;
+    Signal Cin = new Signal();
+    Signal Sum = new Signal();
+    Signal Cout = new Signal();
+    OrGate orGate = new OrGate();
+
+    public FullAdder() {
+        A = new Signal();
+        B = new Signal();
+        halfAdderB = new HalfAdder();
+        halfAdderA = new HalfAdder();
+//        halfAdderA = new HalfAdder(A, B);
+//        halfAdderB = new HalfAdder(A, B);
+    }
+
+    public FullAdder(Signal a, Signal b, Signal cin) {
+        A = a;
+        B = b;
+        Cin = cin;
+        halfAdderA = new HalfAdder(A, B);
+        halfAdderB = new HalfAdder(A, B);
+//                halfAdderA = new HalfAdder();
+//                halfAdderB = new HalfAdder();
+
+    }
 
     public void receiveInput(Signal inputA, Signal inputB, Signal inputCin) {
         A = inputA;

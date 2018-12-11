@@ -8,7 +8,6 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.mockito.Mockito.doReturn;
 
 public class HalfAdderTest {
     @Mock Signal A;
@@ -40,8 +39,9 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum00() throws Exception {
-        doReturn(falseTestSignal).when(XOR).getResult();
-        doReturn(falseTestSignal).when(AND).getResult();
+//        doReturn(falseTestSignal).when(XOR).getResult();
+//        doReturn(falseTestSignal).when(AND).getResult();
+        halfAdder.receiveInput(falseTestSignal, falseTestSignal);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(0)));
@@ -49,8 +49,9 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum11() throws Exception {
-        doReturn(falseTestSignal).when(XOR).getResult();
-        doReturn(trueTestSignal).when(AND).getResult();
+//        doReturn(falseTestSignal).when(XOR).getResult();
+//        doReturn(trueTestSignal).when(AND).getResult();
+        halfAdder.receiveInput(trueTestSignal, trueTestSignal);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(0)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(1)));
@@ -58,8 +59,9 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum10() throws Exception {
-        doReturn(trueTestSignal).when(XOR).getResult();
-        doReturn(falseTestSignal).when(AND).getResult();
+//        doReturn(trueTestSignal).when(XOR).getResult();
+//        doReturn(falseTestSignal).when(AND).getResult();
+        halfAdder.receiveInput(trueTestSignal,falseTestSignal);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(0)));
@@ -67,8 +69,9 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnSum01() throws Exception {
-        doReturn(trueTestSignal).when(XOR).getResult();
-        doReturn(falseTestSignal).when(AND).getResult();
+//        doReturn(trueTestSignal).when(XOR).getResult();
+//        doReturn(falseTestSignal).when(AND).getResult();
+        halfAdder.receiveInput(falseTestSignal,trueTestSignal);
         halfAdder.doOperation();
         assertThat(halfAdder.getSum().getValue(), is(equalTo(1)));
         assertThat(halfAdder.getCout().getValue(), is(equalTo(0)));
@@ -76,7 +79,7 @@ public class HalfAdderTest {
 
     @Test
     public void testDoOperationReturnCout() throws Exception {
-        doReturn(trueTestSignal).when(AND).getResult();
+        halfAdder.receiveInput(trueTestSignal,trueTestSignal);
         halfAdder.doOperation();
         assertThat(halfAdder.getCout().getValue(), is(equalTo(1)));
     }

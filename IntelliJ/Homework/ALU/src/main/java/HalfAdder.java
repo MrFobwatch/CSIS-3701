@@ -4,12 +4,30 @@ import java.util.ListIterator;
 
 public class HalfAdder implements Component {
     List<Signal> outputList = new ArrayList<>();
-    Signal A;
-    Signal B;
-    Signal Sum;
-    Signal Cout;
-    XorGate XOR;
-    AndGate AND;
+    Signal A = new Signal();
+    Signal B= new Signal();
+    Signal Sum;//= new Signal();
+    Signal Cout;// = new Signal();
+    XorGate XOR = new XorGate();
+    AndGate AND = new AndGate();
+
+    public HalfAdder(){
+    	A = new Signal();
+    	B = new Signal();
+    	XOR.receiveInput(A, B);
+    	AND.receiveInput(A, B);
+
+    }
+
+    public HalfAdder(Signal a, Signal b) {
+    	A.receive(a.getValue());
+        B.receive(b.getValue());
+//	    XOR.receiveInput(A, B);
+//	    AND.receiveInput(A, B);
+
+        //        XOR =  new XorGate();
+        //        AND = new AndGate();
+    }
 
     public void receiveInput(Signal inputA, Signal inputB) {
         A = inputA;

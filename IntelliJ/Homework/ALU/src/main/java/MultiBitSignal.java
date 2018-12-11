@@ -6,10 +6,10 @@ public class MultiBitSignal {
     private List<Signal> signalList = new ArrayList<>();
     private int decimal;
 
-//    public MultiBitSignal(Signal... numOfBit) {
-//        Collections.addAll(signalList, numOfBit);
-//        setDecimal();
-//    }
+    public MultiBitSignal(List<Signal> inputSignalList) {
+	    signalList.addAll(inputSignalList);
+        setDecimal();
+    }
 
     private void setDecimal() {
         StringBuilder binaryValue = new StringBuilder();
