@@ -5,10 +5,16 @@ public class AndGate extends LogicGate {
 
     public AndGate() {
         super(2);
+        C = new Signal();
+        B = new Signal();
+        A = new Signal();
     }
 
     public AndGate(int inputPortCount) {
         super(inputPortCount);
+        C = new Signal();
+        B = new Signal();
+        A = new Signal();
     }
 
     public void receiveInput(Signal inputA, Signal inputB) {

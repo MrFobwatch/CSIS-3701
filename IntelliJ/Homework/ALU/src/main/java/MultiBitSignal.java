@@ -14,7 +14,7 @@ public class MultiBitSignal {
     private void setDecimal() {
         StringBuilder binaryValue = new StringBuilder();
         for (Signal sig : signalList) {
-            binaryValue.append(((Integer.toString(sig.getValue()))));
+            binaryValue.append(sig.getValue());
         }
         decimal = Integer.parseInt(binaryValue.toString(), 2);
     }

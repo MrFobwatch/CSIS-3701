@@ -5,10 +5,16 @@ public class OrGate extends LogicGate {
 
     public OrGate() {
         super(2);
+        C = new Signal();
+        B = new Signal();
+        A = new Signal();
     }
 
     public OrGate(int inputPortCount) {
         super(inputPortCount);
+        C = new Signal();
+        B = new Signal();
+        A = new Signal();
     }
 
     @Override

@@ -4,6 +4,8 @@ public class InverterGate extends LogicGate {
 
     public InverterGate() {
         super(1);
+        Q = new Signal();
+        notQ = new Signal();
     }
 
     public void receiveInput(Signal inputQ) {

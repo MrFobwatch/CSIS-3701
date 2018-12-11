@@ -8,7 +8,7 @@ public class MultiBitAdderSubtractor implements Component {
     List<Signal> inputAs = new ArrayList<>();
     List<Signal> inputBs = new ArrayList<>();
     Signal Cin = new Signal(); // Used for 2s Complement
-    Signal Cout;
+    Signal Cout = new Signal();
 
     public MultiBitAdderSubtractor(int numberOfBits) {
         Cin.changeState(false);
@@ -33,8 +33,8 @@ public class MultiBitAdderSubtractor implements Component {
             Signal a,
             Signal b,
             Signal cin,
-            List<FullAdder> fullAdders,
-            List<XorGate> xorGates) {
+            List<FullAdder> fullAdderList,
+            List<XorGate> xorGateList) {
         FullAdder adder = new FullAdder();
         XorGate xorGate = new XorGate();
         if (bitCount == 0) {
@@ -43,13 +43,15 @@ public class MultiBitAdderSubtractor implements Component {
             //                xorGate.doOperation(); // running this just to be safe
             adder.receiveInput(a, xorGate.getResult(), cin);
         } else {
+        	xorGate.receiveInput(b,cin);
+        	xorGate.doOperation();
             adder.receiveInput(
                     a,
                     xorGate.getResult(),
-                    fullAdders.get(bitCount - 1).Cout); // Get previous Cout and pipe to Cin
+                    fullAdderList.get(bitCount - 1).Cout); // Get previous Cout and pipe to Cin
         }
-        xorGates.add(xorGate);
-        fullAdders.add(adder);
+        xorGateList.add(xorGate);
+        fullAdderList.add(adder);
     }
 
     public void receiveInputs(List<Signal> inputs) {
@@ -74,11 +76,11 @@ public class MultiBitAdderSubtractor implements Component {
 
     @Override
     public void doOperation() { // should only be called after receiveInput
-        for (XorGate thisXorGate : xorGates) {
-            thisXorGate.doOperation();
+        for (XorGate xorGate : xorGates) {
+            xorGate.doOperation();
         }
-        for (FullAdder thisfullAdder : fullAdders) {
-            thisfullAdder.doOperation();
+        for (FullAdder fullAdder : fullAdders) {
+            fullAdder.doOperation();
         }
     }
 
