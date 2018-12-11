@@ -1,44 +1,44 @@
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultiBitSignal {
-    private Vector<Signal> bitVector = new Vector<>();
+    private List<Signal> signalList = new ArrayList<>();
     private int decimal;
 
-
     private void setDecimal() {
-    	StringBuilder binaryValue = new StringBuilder();
-    	for(Signal sig: bitVector){
-    	    binaryValue.append(sig.toString());
+        StringBuilder binaryValue = new StringBuilder();
+        for (Signal sig : signalList) {
+            binaryValue.append(sig.toString());
         }
         decimal = Integer.parseInt(binaryValue.toString(), 2);
     }
 
     public MultiBitSignal(Signal... numOfBit) {
-        bitVector.setSize(numOfBit.length);
+        //        signalList.setSize(numOfBit.length);
         for (int bitCount = 0; bitCount < numOfBit.length; bitCount++) {
             Signal singleBit = numOfBit[bitCount];
-            bitVector.set(bitCount, singleBit);
+            signalList.set(bitCount, singleBit);
         }
         setDecimal();
     }
 
     public void receiveInput(Signal... numOfBit) {
-        bitVector.setSize(numOfBit.length);
+        //        signalList.setSize(numOfBit.length);
         for (int bitCount = 0; bitCount < numOfBit.length; bitCount++) {
             Signal singleBit = numOfBit[bitCount];
-            bitVector.set(bitCount, singleBit);
+            signalList.set(bitCount, singleBit);
         }
         setDecimal();
     }
 
     public void receiveInput(String numberInBinary) {
-        bitVector.setSize(numberInBinary.length());
+        //        signalList.setSize(numberInBinary.length());
         for (int bitCount = 0; bitCount < numberInBinary.length(); bitCount++) {
             char bitValue = numberInBinary.charAt(bitCount);
             if (bitValue == '1') {
-                bitVector.elementAt(bitCount).changeState(true);
+                signalList.get(bitCount).changeState(true);
             } else if (bitValue == '0') {
-                bitVector.elementAt(bitCount).changeState(true);
+                signalList.get(bitCount).changeState(true);
             }
         }
         setDecimal();
@@ -48,7 +48,7 @@ public class MultiBitSignal {
         return decimal;
     }
 
-    public Vector<Signal> getBitVector() {
-        return bitVector;
+    public List<Signal> getBitList() {
+        return signalList;
     }
 }

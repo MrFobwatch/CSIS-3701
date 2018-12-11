@@ -1,8 +1,9 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
 public class FullAdder implements Component {
-    LinkedList<Signal> outputList = new LinkedList<>();
+    List<Signal> outputList = new ArrayList<>();
     HalfAdder halfAdderA;
     HalfAdder halfAdderB;
     Signal A;

@@ -6,7 +6,6 @@ public abstract class LogicGate {
     LinkedList<Signal> ports = new LinkedList<Signal>();
     private int inputPortCount;
 
-
     public LogicGate() {}
 
     public LogicGate(int inputPortCount) {

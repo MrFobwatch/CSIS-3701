@@ -2,6 +2,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -10,7 +12,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsSame.sameInstance;
 
 public class MultiBitSignalTest {
-    @Mock Vector<Signal> bitVector;
+    @Mock
+    List<Signal> signalList;
     Signal trueTestSignal;
     Signal falseTestSignal;
     MultiBitSignal multiBitSignal;
@@ -28,7 +31,7 @@ public class MultiBitSignalTest {
     public void testReceiveInput() throws Exception {
         Signal testInput = new Signal(true);
         multiBitSignal.receiveInput(testInput, testInput);
-        Signal result = multiBitSignal.getBitVector().firstElement();
+        Signal result = multiBitSignal.getBitList().get(1);
         assertThat(result, sameInstance(testInput));
     }
 
@@ -38,7 +41,7 @@ public class MultiBitSignalTest {
         MultiBitSignal testMultiBitSignal = new MultiBitSignal(trueTestSignal, trueTestSignal, trueTestSignal, trueTestSignal);
         String fifteen = "1111";
         multiBitSignal.receiveInput(fifteen);
-        Vector<Signal> result = multiBitSignal.getBitVector();
+        List<Signal> result = multiBitSignal.getBitList();
         assertThat(result.toString(), is(equalTo( testMultiBitSignal.toString())));
     }
 

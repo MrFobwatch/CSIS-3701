@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import static org.hamcrest.CoreMatchers.sameInstance;
@@ -15,7 +15,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.when;
 
 public class FullAdderTest {
-    @Mock LinkedList<Signal> outputList;
+    @Mock
+    List<Signal> outputList;
     @Mock HalfAdder halfAdderA;
     @Mock HalfAdder halfAdderB;
     @Mock OrGate orGate;
